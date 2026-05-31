@@ -1,0 +1,50 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered customer profile on the store",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Unique Google Authentication user ID" },
+        "email": { "type": "string", "description": "Verified email address of the customer" },
+        "displayName": { "type": "string", "description": "Customer display name" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the profile was set up" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Historic order dispatched by the customer",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique order tracking reference ID" },
+        "userId": { "type": "string", "description": "Reference to the authenticated customer's UID who placed this" },
+        "customerName": { "type": "string", "description": "Delivery receiver name" },
+        "phone": { "type": "string", "description": "Direct phone or whatsapp contact number" },
+        "address": { "type": "string", "description": "Street shipping address" },
+        "city": { "type": "string", "description": "Destination city" },
+        "postalCode": { "type": "string", "description": "Destination postal code" },
+        "province": { "type": "string", "description": "Destination South African province" },
+        "notes": { "type": "string", "description": "Special shipping notes / instructions" },
+        "shippingMethod": { "type": "string", "description": "Courier delivery service standard or express" },
+        "items": { "type": "array", "description": "List of ordered items matching CartItem shape" },
+        "subtotal": { "type": "number", "description": "Total value of items without shipping" },
+        "shippingCost": { "type": "number", "description": "Courier delivery surcharge" },
+        "finalTotal": { "type": "number", "description": "Total checkout value including shipping" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Order placement timestamp" },
+        "status": { "type": "string", "enum": ["PENDING", "COMPLETED"], "description": "Status of order validation" }
+      },
+      "required": ["id", "userId", "customerName", "phone", "address", "city", "postalCode", "province", "items", "subtotal", "shippingCost", "finalTotal", "createdAt", "status"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Secure document storing specific profile detail per uid"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Secure historic order stored and queryable per user"
+    }
+  }
+}

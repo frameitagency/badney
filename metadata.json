@@ -1,0 +1,6 @@
+{
+  "name": "Badney Cotton",
+  "description": "Premium clothing brand e-commerce store with seamless WhatsApp checkout integration.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
